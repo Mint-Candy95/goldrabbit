@@ -10,8 +10,9 @@ class User(models.Model) :
 
 class Reserved(models.Model) :
     reserved_name = models.ForeignKey(User, on_delete=models.CASCADE)
-    reserved_start = models.DateTimeField('start time')
-    reserved_end = models.DateTimeField('end time')
+    reserved_date = models.CharField(max_length=12)
+    reserved_start = models.IntegerField()
+    reserved_end = models.IntegerField()
     reserved_person = models.IntegerField(default=1, null=False)
     reserved_price = models.IntegerField(default=20000, null=False)
     reserved_status = models.CharField(max_length=10, default='wait', null=False)

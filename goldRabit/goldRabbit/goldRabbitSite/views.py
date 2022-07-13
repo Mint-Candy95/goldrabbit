@@ -3,10 +3,13 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import Reserved, User, Notification
 
+import json
+
 def goldrabbit_main(request) :
-    reserved_list = Reserved.objects.all()
+    reservedList = list(Reserved.objects.all().values())
+    reservJson = json.dumps(reservedList)
     context = {
-        'reserved_list' : reserved_list,
+        'reservedList' : reservJson,
     }
     
     return render(request, 'goldRabbitSite/goldrabbit_main.html', context)

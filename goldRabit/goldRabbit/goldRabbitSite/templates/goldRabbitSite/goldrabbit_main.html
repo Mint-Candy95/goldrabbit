@@ -1,21 +1,81 @@
-<!DOCTYPE html>
-<html lang='en'>
-  <head>
-    <meta charset='utf-8' />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
-        });
-        calendar.render();
-      });
+{% extends 'goldRabbitSite/base.html' %}
+{% load static %}
 
-    </script>
-  </head>
-  <body>
+{% block content %}
+<div id="body_main">
+    <img id="logo" src="{% static 'goldRabbitSite/images/logo.jpg'%}">
     <div id='calendar'></div>
-  </body>
-</html>
+</div>
+
+<script>
+    var reservList = JSON.parse("{{reservedList|escapejs}}");
+    var eventsList = []
+    for (let val of reservList){
+        console.log(val);
+        eventsList.push({title: parseInt(val.reserved_end)-parseInt(val.reserved_start)+"시간",
+                    start: val.reserved_date+"T"+val.reserved_start+":00:00",
+                end : val.reserved_date+"T"+val.reserved_end+":00:00",
+                allDay:false,})
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left : 'notify',
+                    center: 'prev title next',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                //공지버튼
+                customButtons: {
+                        notify:{
+                        text: '🔈공지',
+                        click: function() {
+                            //todo
+                        }
+                    }
+                },
+                slotMinTime : '13:00',
+                slotMaxTime : '25:00',
+                events: eventsList,
+                eventTimeFormat: { // like '14:30:00'
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    meridiem: false
+                },
+                dayHeaderContent: function (date) {
+                let weekList = ["일", "월", "화", "수", "목", "금", "토"];
+                return weekList[date.dow];
+                },
+                // YYYY년 MM월
+                titleFormat: function(date) {
+                    return `${date.date.month + 1}`;
+                },
+                contentHeight: 500
+            });
+
+
+        console.log(eventsList)
+        calendar.render();
+    });
+</script>
+
+<style>
+    #calendar{
+        width : 95%;
+        margin: 0 auto;
+    }
+    #logo{
+        display:block;
+        width : 20%;
+        margin : 0 auto;
+    }
+    .fc-toolbar-chunk {
+        display: flex; 
+        align-items: center; 
+      }
+    .fc-toolbar-title {
+        font-size : larger;
+    }
+</style>
+{% endblock %}
