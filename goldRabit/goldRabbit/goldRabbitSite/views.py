@@ -8,8 +8,13 @@ import json
 def goldrabbit_main(request) :
     reservedList = list(Reserved.objects.all().values())
     reservJson = json.dumps(reservedList)
+    
+    notiList = list(Notification.objects.all().values())
+    notiJson = json.dumps(notiList)
     context = {
         'reservedList' : reservJson,
+        'notiList' : notiJson,
+        'recent_noti' : Notification.objects.order_by('-noti_date')[:1].values()
     }
     
     return render(request, 'goldRabbitSite/goldrabbit_main.html', context)

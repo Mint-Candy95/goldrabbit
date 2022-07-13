@@ -25,6 +25,7 @@ class Reserved(models.Model) :
 class Notification(models.Model) :
     noti_title = models.CharField(max_length=50)
     noti_contents = models.CharField(max_length=2000)
+    noti_date = models.CharField(max_length= 20)
     
     def __str__(self) :
         return self.noti_title
