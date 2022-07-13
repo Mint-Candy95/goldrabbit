@@ -19,7 +19,9 @@
                 {% endfor %}
             </div>
     </div>
-
+    <form id='send_date' type="POST">
+        {% csrf_token %}
+    </form>
 </div>
 
 
@@ -28,7 +30,7 @@
     var eventsList = []
     for (let val of reservList){
         console.log(val);
-        eventsList.push({title: parseInt(val.reserved_end)-parseInt(val.reserved_start)+"시간",
+        eventsList.push({title: "~"+val.reserved_end+":00",
                     start: val.reserved_date+"T"+val.reserved_start+":00:00",
                 end : val.reserved_date+"T"+val.reserved_end+":00:00",
                 allDay:false,})
@@ -37,15 +39,33 @@
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
+                dateClick:function(info) {
+                    let f = document.getElementById('send_date');
+
+                    let obj;
+                    obj = document.createElement('input');
+                    obj.setAttribute('type', 'hidden');
+                    obj.setAttribute('name', 'today_date');
+                    obj.setAttribute('value', info);
+
+                    f.appendChild(obj);
+                    f.setAttribute('method', 'post');
+                    f.setAttribute('action', "{% url 'goldRabbitSite:reservate' %}");
+                    document.body.appendChild(f);
+                    f.submit();
+
+                }
+                ,
                 headerToolbar: {
-                    left : 'notify',
+                    {% comment %} left : 'notify', {% endcomment %}
+                    left:'',
                     center: 'prev title next',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    right: ''
                 },
                 //공지버튼
                 customButtons: {
                         notify:{
-                        text: '🔈공지',
+                        text: '🔈',
                         click: function() {
                             modal.style.display = "flex"
                         }
@@ -57,7 +77,8 @@
                 eventTimeFormat: { // like '14:30:00'
                     hour: '2-digit',
                     minute: '2-digit',
-                    meridiem: false
+                    meridiem: false,
+                    hour12:false
                 },
                 dayHeaderContent: function (date) {
                 let weekList = ["일", "월", "화", "수", "목", "금", "토"];
@@ -65,7 +86,7 @@
                 },
                 // YYYY년 MM월
                 titleFormat: function(date) {
-                    return `${date.date.month + 1}`;
+                    return `${date.date.year}년 ${date.date.month + 1}월`;
                 },
                 contentHeight: 500
             });
@@ -127,7 +148,7 @@
     #modal {
         z-index : 1050;
     }
-    #modal.modal-overlay {
+    .modal-overlay {
         width: 100%;
         height: 100%;
         position: absolute;
@@ -144,7 +165,7 @@
         border-radius: 10px;
         border: 1px solid rgba(255, 255, 255, 0.18);
     }
-    #modal .modal-window {
+    .modal-window {
         background: rgba( 255, 210, 255, 1 );
         box-shadow: 0 8px 32px 0 rgba( 254, 222, 15, 0.37 );  <!--31,38,135-->
         backdrop-filter: blur( 13.5px );
@@ -157,17 +178,17 @@
         top: -100px;
         padding: 10px;
     }
-    #modal .title {
+    .title {
         padding-left: 10px;
         display: inline;
         text-shadow: 1px 1px 2px gray;
         color: white;
         
     }
-    #modal .title h2 {
+    .title h2 {
         display: inline;
     }
-    #modal .close-area {
+    .close-area {
         display: inline;
         float: right;
         padding-right: 10px;
@@ -176,7 +197,7 @@
         color: white;
     }
     
-    #modal .content {
+    .content {
         margin-top: 20px;
         padding: 0px 10px;
         text-shadow: 1px 1px 2px gray;

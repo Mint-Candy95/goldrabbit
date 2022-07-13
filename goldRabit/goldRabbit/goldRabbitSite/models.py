@@ -1,16 +1,9 @@
 from django.db import models
 
-class User(models.Model) :
-    user_name = models.CharField(max_length=30)
-    user_pwd = models.CharField(max_length=30)
-    user_created = models.DateTimeField('date published')
-    
-    def __str__(self) :
-        return self.user_name
-
 class Reserved(models.Model) :
-    reserved_name = models.ForeignKey(User, on_delete=models.CASCADE)
+    reserved_name = models.CharField(max_length=30)
     reserved_date = models.CharField(max_length=12)
+    reserved_pwd = models.CharField(max_length=30)
     reserved_start = models.IntegerField()
     reserved_end = models.IntegerField()
     reserved_person = models.IntegerField(default=1, null=False)
