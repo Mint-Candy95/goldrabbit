@@ -29,7 +29,7 @@ def goldrabbit_reservate(request) :
 
 def goldrabbit_notification(request) :
     page = request.GET.get('page', '1')
-    notifyList = Notification.objects.order_by('-create_date')
+    notifyList = Notification.objects.order_by('-noti_date').values()
     paginator = Paginator(notifyList, 10)
     page_obj = paginator.get_page(page)
 
@@ -38,6 +38,13 @@ def goldrabbit_notification(request) :
     }
     return render(request, 'goldRabbitSite/notification.html', context)
     
+def goldrabbit_notificationDetail(request,noti_num) :
+    
+    notify = Notification.objects.get(id=noti_num)
+    context = {
+        'notify' : notify
+    }
+    return render(request, 'goldRabbitSite/notification_detail.html', context)
 
 def goldrabbit_myreserved(request) :
     

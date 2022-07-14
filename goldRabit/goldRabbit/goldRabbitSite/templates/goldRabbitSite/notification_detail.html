@@ -1,0 +1,29 @@
+{% extends 'goldRabbitSite/base.html' %}
+{% load static %}
+
+{% block content %}
+<h3 style="text-align:center; margin-top:4%; margin-bottom:3%">공지 사항</h3>
+
+<div id="noti_table" class="container row">
+    <table  class="table">
+       <thead>
+         <tr>
+            <th class="col-8" scope="col">{{notify.noti_title}}</th>
+            <th class="col-2" scope="col">{{notify.noti_date}}</th>
+         </tr>
+       </thead>
+       <tbody>
+        
+         <tr>
+           <td colspan="2">{{notify.noti_contents}}</td>
+         </tr>
+       </tbody>
+     </table>
+   </div>
+
+<style>
+    #noti_table{
+        margin : 0 auto;
+    }
+</style>
+{% endblock %}

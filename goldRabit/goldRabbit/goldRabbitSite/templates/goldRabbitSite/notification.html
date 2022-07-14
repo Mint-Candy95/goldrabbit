@@ -2,29 +2,39 @@
 {% load static %}
 
 {% block content %}
- 공지사항 페이지
 
- <table class="table">
+
+<h3 style="text-align:center; margin-top:4%; margin-bottom:3%">공지 사항</h3>
+<div id="noti_table" class="container row">
+ <table  class="table" style="text-align:center">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">제 목</th>
-        <th scope="col">작성일</th>
+        <th class="col-1" scope="col">#</th>
+        <th class="col-8" scope="col">제 목</th>
+        <th class="col-3" scope="col">작성일</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
       </tr>
       {% for notify in notifyList %}
-      <tr>
-        <th scope="row">{{}}</th>
-        <td>Mark</td>
-        <td>Otto</td>
+      <form type="GET">
+        {% csrf_token %}
+      <tr onclick="location.href='{{notify.id}}'">
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{notify.noti_title}}
+        </td>
+        <td>{{notify.noti_date}}</td>
       </tr>
+    </form>
       {% endfor %}
     </tbody>
-  </table>          
+  </table>
+</div>
+
+<style>
+    #noti_table{
+        margin : 0 auto;
+    }
+</style>
 {% endblock %}
