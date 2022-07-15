@@ -8,22 +8,6 @@
         <div id='calendar'></div>
     <div>
 
-    <div id="modal" class="modal-overlay">
-        <div class="modal-window container">
-            <div id="day_title" class="title">
-
-            </div>
-            <div class="content">
-                <ul id="day_list">
-                </ul>
-            </div>
-            <form method="post" id="button_layout" class="row justify-content-center">
-                {%csrf_token%}
-                <input type="hidden" id="select_date" name="select_date" value = ""/>
-                <button type="submit" id="go_reservate" class="btn btn-primary" role="button">예약하기</button>
-            </form>
-        </div>
-    </div>
 </div>
 
 
@@ -77,7 +61,7 @@
                     modal.style.display = "flex";
                 },
                 dateClick:function(info) {
-                    {% comment %} let f = document.getElementById('send_date');
+                    let f = document.getElementById('send_date');
 
                     let obj;
                     obj = document.createElement('input');
@@ -89,37 +73,7 @@
                     f.setAttribute('method', 'post');
                     f.setAttribute('action', "{% url 'goldRabbitSite:reservate' %}");
                     document.body.appendChild(f);
-                    f.submit(); {% endcomment %}
-                    
-                    document.getElementById("select_date").value = info.dateStr;
-
-                    let g = document.getElementById('day_title');
-                    while(g.hasChildNodes()) {
-                        g.removeChild(g.firstChild);
-                    }
-                    let obj2 = document.createElement('h3');
-                    var tday = info.dateStr.substr(-2);
-                    obj2.innerText = "　"+tday+"일 예약 현황";
-                    g.appendChild(obj2);
-
-                    let h = document.getElementById('go_reservate');
-                    h.setAttribute("formaction", "{% url 'goldRabbitSite:reservate' %}");
-                    
-                    let f = document.getElementById('day_list');
-                    while(f.hasChildNodes()) {
-                        f.removeChild(f.firstChild);
-                    }
-                    for (let val of reservList){
-                        if (val.reserved_date === info.dateStr){
-                            let obj;
-                            obj = document.createElement('li');
-
-                            obj.innerText = val.reserved_start+"~"+val.reserved_end+"　"+val.reserved_name+"　　　"+val.reserved_status;
-                            f.appendChild(obj);
-                        }
-                    }
-                    modal.style.display = "flex";
-
+                    f.submit(); 
                 }
                 ,
                 headerToolbar: {
@@ -127,15 +81,6 @@
                     left:'',
                     center: 'prev title next',
                     right: ''
-                },
-                //공지버튼
-                customButtons: {
-                        notify:{
-                        text: '🔈',
-                        click: function() {
-                            modal.style.display = "flex"
-                        }
-                    }
                 },
                 slotMinTime : '13:00',
                 slotMaxTime : '25:00',
@@ -162,29 +107,6 @@
         calendar.render();
     });
 
-
-
-    const modal = document.getElementById("modal")
-    function modalOn() {
-        modal.style.display = "flex"
-    }
-    function isModalOn() {
-        return modal.style.display === "flex"
-    }
-    function modalOff() {
-        modal.style.display = "none"
-    }
-    modal.addEventListener("click", e => {
-        const evTarget = e.target
-        if(evTarget.classList.contains("modal-overlay")) {
-            modalOff()
-        }
-    })
-    window.addEventListener("keyup", e => {
-        if(isModalOn() && e.key === "Escape") {
-            modalOff()
-        }
-    })
 </script>
 
 <style>
@@ -211,50 +133,8 @@
     .fc-toolbar-title {
         font-size : larger;
     }
-    #modal {
-        z-index : 1050;
-    }
-    .modal-overlay {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.25);
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        backdrop-filter: blur(1.5px);
-        -webkit-backdrop-filter: blur(1.5px);
-        border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-    }
-    .modal-window {
-        background: rgba( 255, 210, 255, 1 );
-        box-shadow: 0 8px 32px 0 rgba( 254, 222, 15, 0.37 );  <!--31,38,135-->
-        backdrop-filter: blur( 13.5px );
-        -webkit-backdrop-filter: blur( 13.5px );
-        border-radius: 10px;
-        border: 1px solid rgba( 255, 255, 255, 0.18 );
-        width: 70%;
-        height: 50%;
-        position: relative;
-        top: -100px;
-        padding: 10px;
-        display:table;
-    }
-    .title {
-        padding-left: 10px;
-        display: inline;
-        text-shadow: 1px 1px 2px gray;
-        color: purple;
-        
-    }
-    .title h2 {
-        display: inline;
-    }
+
+    
 
     
     .content {

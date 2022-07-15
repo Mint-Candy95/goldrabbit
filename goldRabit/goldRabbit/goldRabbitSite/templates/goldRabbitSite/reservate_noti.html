@@ -1,0 +1,55 @@
+{% extends 'goldRabbitSite/base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="body_main">
+    <img id="logo" src="{% static 'goldRabbitSite/images/logo.jpg'%}">
+    <div id="reserv_main">
+        <br/><br/>
+        <h3>예약 신청이 완료되었습니다냥.</h3>
+        <br/>
+        <p>계좌 번호 : 우리은행 1002-545-558659</p>
+        <p>예금주 : 최성하</p>
+        <p>위의 계좌로 선입금 20,000원을 입금하라냥.</p>
+        <p>입금 확인 후 예약 승인을 해드린다냥.</p>
+        <p id="caution">※ 주의 사항<br/>
+            예약 닉네임과 입금자명을 동일하게 해달라냥.<br/>
+            24시간 내에 입금하지 않으면 예약이 취소된다냥.
+        </p>
+        <div style="margin-top:20px; margin-bottom:20px">
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary" formaction="{% url 'goldRabbitSite:myreserved' %}">나의 예약 확인하기</button>
+                <button type="submit" class="btn btn-primary" formaction="{% url 'goldRabbitSite:main' %}">메인으로</button>
+            </form>
+        </div>
+        <br/>
+    </div>
+</div>
+
+<style>
+    #logo{
+        display:block;
+        width : 20%;
+        margin : 0 auto;
+        margin-top : 20px;
+        margin-bottom : 20px;
+    }
+
+    #reserv_main{
+        border: 4px solid rgb(254,222,15);
+        border-radius : 60px;
+        text-align : center;
+        width : 80%;
+        margin : auto;
+    }
+
+    .input-data{
+        width:50%;
+    }
+
+    #caution {
+        color : red;
+    }
+</style>
+{% endblock %}

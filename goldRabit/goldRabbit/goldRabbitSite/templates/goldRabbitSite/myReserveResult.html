@@ -1,0 +1,66 @@
+{% extends 'goldRabbitSite/base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="body_main">
+    <img id="logo" src="{% static 'goldRabbitSite/images/logo.jpg'%}">
+    
+    <div id="reserv_main">
+        <br/>
+        <h3>나의 예약</h3><br/>
+        <table id="reserve_table" class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">닉네임</th>
+                <th scope="col">날짜</th>
+                <th scope="col">시간</th>
+                <th scope="col">인원 수</th>
+                <th scope="col">예약 상태</th>
+              </tr>
+            </thead>
+            <tbody
+                {% for reserv in reserv_list %}
+              <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{reserv.reserved_name}}</td>
+                <td>{{reserv.reserved_date}}</td>
+                <td>{{reserv.reserved_start}}~{{reserv.reserved_end}}</td>
+                <td>{{reserv.reserved_person}}</td>
+                <td>{{reserv.reserved_status}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+    </div>
+    </form>
+
+</div>
+
+<style>
+    #logo{
+        display:block;
+        width : 20%;
+        margin : 0 auto;
+        margin-top : 20px;
+        margin-bottom : 20px;
+    }
+
+    #reserv_main{
+        border: 4px solid rgb(254,222,15);
+        border-radius : 60px;
+        text-align : center;
+        width : 80%;
+        margin : auto;
+    }
+
+    .input-data{
+        width:50%;
+    }
+
+    #reserve_table{
+        margin-bottom: 50px;
+    }
+</style>
+{% endblock %}

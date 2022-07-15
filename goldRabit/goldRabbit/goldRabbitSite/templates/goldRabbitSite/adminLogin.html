@@ -7,13 +7,12 @@
     
     <div id="reserv_main">
         <br/>
-        <h3>예약 정보</h3><br/>
+        <h3>관리자 로그인</h3><br/>
         <form method="POST">
-            <p>닉네임 : <input name="nickname" type="text" class = "form-control-sm input-data" maxlength="10"><br/></p>
             <p>비밀번호 : <input name="pwd"type="password" class="form-control-sm input-data"/></p>
             <div style="margin-top:20px; margin-bottom:20px">
                 {% csrf_token %}
-                <button type="submit" class="btn btn-primary" formaction="{% url 'goldRabbitSite:myreservedResult' %}">검색</button>
+                <button type="submit" class="btn btn-primary" formaction="{% url 'goldRabbitSite:admin' %}">검색</button>
             </div>
         </form>
     </div>
