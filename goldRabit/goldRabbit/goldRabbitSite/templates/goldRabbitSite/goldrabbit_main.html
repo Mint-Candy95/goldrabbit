@@ -35,7 +35,7 @@
     var eventsList = []
     for (let val of reservList){
         console.log(val);
-        eventsList.push({title: "~"+val.reserved_end+":00",
+        eventsList.push({title: "~"+val.reserved_end,
                     start: val.reserved_date+"T"+val.reserved_start+":00:00",
                 end : val.reserved_date+"T"+val.reserved_end+":00:00",
                 allDay:false,})
@@ -213,21 +213,11 @@
                     center: 'prev title next',
                     right: ''
                 },
-                //공지버튼
-                customButtons: {
-                        notify:{
-                        text: '🔈',
-                        click: function() {
-                            modal.style.display = "flex"
-                        }
-                    }
-                },
                 slotMinTime : '13:00',
                 slotMaxTime : '25:00',
                 events: eventsList,
                 eventTimeFormat: { // like '14:30:00'
                     hour: '2-digit',
-                    minute: '2-digit',
                     meridiem: false,
                     hour12:false
                 },
@@ -284,7 +274,7 @@
     }
     #logo{
         display:block;
-        width : 20%;
+        width : 30%;
         margin : auto;
         margin-top : 20px;
         margin-bottom : 20px;
@@ -325,7 +315,7 @@
         border: 1px solid rgba( 255, 255, 255, 0.18 );
         width: 70%;
         height: 50%;
-        position: relative;
+        position: sticky;
         top: -100px;
         padding: 10px;
         display:table;
@@ -363,5 +353,21 @@
 
     }
 
+    .fc-col-header-cell-cushion{
+        color : rgb(255,138,176);
+        text-decoration : none;
+    }
+
+    .fc-daygrid-day-number{
+        color : rgb(255,83,139);
+        text-decoration : none;
+    }
+    .fc .fc-button-primary{
+        background-color : rgb(128,0,0);
+        border-color : white;
+    }
+    .fc td{
+        font-size : 0.8em;
+    }
 </style>
 {% endblock %}
