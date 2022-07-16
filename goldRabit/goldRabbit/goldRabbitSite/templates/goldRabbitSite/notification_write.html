@@ -7,11 +7,6 @@
 <div id="noti_main">
   <div>
     <h3 style="text-align:center; margin-top:6%; margin-bottom:3%">공지 사항</h3>
-    {% if user.is_authenticated %}
-    <button type="submit" id="reserv_notice" formaction="{% url 'goldRabbitSite:reservate_noti' %}" 
-            class="btn btn-primary btn-sm" role="button" style="margin-bottom:20px;margin-right:20px;float:right">
-            글쓰기</button>
-    {% endif %}
   </div>
   <div id="noti_table" class="container row" style="margin-bottom:40px">
   <table class="table" style="text-align:center">

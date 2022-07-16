@@ -10,7 +10,8 @@
         <br/>
         <h3>예약 정보</h3><br/>
         <p>닉네임 : <input type="text" name="username" class = "form-control-sm input-data" maxlength="10" required>
-            <label class="form-check-label"><input name="anony" value="" type="checkbox" class="form-check-input"> 익명</label><br/>
+            <label class="form-check-label"><input onclick="change_status(this)" type="checkbox" class="form-check-input"> 익명</label><br/>
+            <input type="hidden" id="anony" name="anony" value="0">
         </p>
         <p>비밀번호 : <input name="password" type="password" class="form-control-sm input-data" required/></p>
         <p>날짜 : <input name="date" type="date" value="{{init_date}}" required> </p>
@@ -96,6 +97,16 @@
         var max_cost = 150000;
         document.getElementById('cost').value = (cost<max_cost)?cost:max_cost;
         
+    }
+
+    function change_status(obj){
+        var chk = document.getElementById("anony");
+
+        if (obj.checked){
+            chk.value = 1;
+        }else {
+            chk.value= 0;
+        }
     }
 
 </script>

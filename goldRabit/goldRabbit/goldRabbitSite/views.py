@@ -29,10 +29,18 @@ def goldrabbit_reservate(request) :
 
 def goldrabbit_reservate_noti(request) :
     if request.method == 'POST' :
-        print(request.POST)        
+        print(request.POST)
+        name = request.POST.get('username')        
+        pwd = request.POST.get('password')        
+        date = request.POST.get('date')        
+        start = request.POST.get('start')        
+        end = request.POST.get('end')        
+        cost = request.POST.get('cost')        
+        anony = request.POST.get('anony')
+        # Reserved.objects.create()
 
     context = {
-
+        'name' : name, 'pwd':pwd
     }
     return render(request, 'goldRabbitSite/reservate_noti.html', context)
 

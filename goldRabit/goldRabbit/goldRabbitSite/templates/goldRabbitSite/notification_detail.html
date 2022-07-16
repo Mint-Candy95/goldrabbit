@@ -2,30 +2,47 @@
 {% load static %}
 
 {% block content %}
+<img id="logo" src="{% static 'goldRabbitSite/images/logo.jpg'%}">
+
 <h3 style="text-align:center; margin-top:4%; margin-bottom:3%">공지 사항</h3>
-
-<div id="noti_table" class="container row">
-    <table  class="table">
-       <thead>
-         <tr>
-            <th class="col-8" scope="col">{{notify.noti_title}}</th>
-         </tr>
-       </thead>
-       <tbody>
-        
-         <tr>
-           <td>{{notify.noti_contents}}</td>
-         </tr>
-         <tr style="text-align:right">
-            <td>{{notify.noti_date}}</td>
+<div id="noti_main">
+  <div id="noti_table" class="container row" style="margin-bottom:40px">
+      <table  class="table">
+        <thead>
+          <tr>
+              <th class="col-8" scope="col">{{notify.noti_title}}</th>
           </tr>
-       </tbody>
-     </table>
-   </div>
-
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td>{{notify.noti_contents}}</td>
+          </tr>
+          <tr style="text-align:right">
+              <td>{{notify.noti_date}}</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 <style>
     #noti_table{
         margin : 0 auto;
     }
+    #logo{
+      display:block;
+      width : 20%;
+      margin : 0 auto;
+      margin-top : 20px;
+      margin-bottom : 20px;
+  }
+
+  #noti_main{
+      border: 4px solid rgb(254,222,15);
+      border-radius : 60px;
+      text-align : center;
+      width : 80%;
+      margin : auto;
+  }
 </style>
 {% endblock %}

@@ -67,6 +67,7 @@
                     while(f.hasChildNodes()) {
                         f.removeChild(f.firstChild);
                     }
+                    var logined = '{{ user.is_authenticated }}';
                     for (let val of reservList){
                         console.log(val.reserved_date.substr(-2) , tday);
                         if (val.reserved_date.substr(-2) == tday){
@@ -75,38 +76,39 @@
 
                             obj.innerText = val.reserved_start+"~"+val.reserved_end+"　"+val.reserved_name+"　　　"+val.reserved_status;
                             f.appendChild(obj);
+                            if (logined == 'True' ){
+                                let button1 = document.createElement('button');
+                                button1.setAttribute('type', 'submit');
+                                button1.setAttribute('formaction', '{% url "goldRabbitSite:success" %}');
+                                button1.setAttribute('name', 'id');
+                                button1.setAttribute('value', val.id);
+                                button1.setAttribute('class', 'btn btn-primary');
+                                button1.setAttribute('style', 'margin : 5px 10px 20px 0px');
+                                button1.innerText = "완료";
+                                
+                                f.appendChild(button1);
 
-                            let button1 = document.createElement('button');
-                            button1.setAttribute('type', 'submit');
-                            button1.setAttribute('formaction', '{% url "goldRabbitSite:success" %}');
-                            button1.setAttribute('name', 'id');
-                            button1.setAttribute('value', val.id);
-                            button1.setAttribute('class', 'btn btn-primary');
-                            button1.setAttribute('style', 'margin : 5px 10px 20px 0px');
-                            button1.innerText = "완료";
-                            
-                            f.appendChild(button1);
+                                let button2 = document.createElement('button');
+                                button2.setAttribute('type', 'submit');
+                                button2.setAttribute('formaction', '{% url "goldRabbitSite:wait" %}');
+                                button2.setAttribute('name', 'id');
+                                button2.setAttribute('value', val.id);
+                                button2.setAttribute('class', 'btn btn-primary');
+                                button2.setAttribute('style', 'margin : 5px 10px 20px 0px');
+                                button2.innerText = "대기"
 
-                            let button2 = document.createElement('button');
-                            button2.setAttribute('type', 'submit');
-                            button2.setAttribute('formaction', '{% url "goldRabbitSite:wait" %}');
-                            button2.setAttribute('name', 'id');
-                            button2.setAttribute('value', val.id);
-                            button2.setAttribute('class', 'btn btn-primary');
-                            button2.setAttribute('style', 'margin : 5px 10px 20px 0px');
-                            button2.innerText = "대기"
+                                f.appendChild(button2);
 
-                            f.appendChild(button2);
-
-                            let button3 = document.createElement('button');
-                            button3.setAttribute('type', 'submit');
-                            button3.setAttribute('formaction', '{% url "goldRabbitSite:delete" %}');
-                            button3.setAttribute('name', 'id');
-                            button3.setAttribute('value', val.id);
-                            button3.setAttribute('class', 'btn btn-primary');
-                            button3.setAttribute('style', 'margin : 5px 5px 20px 0px');
-                            button3.innerText = "삭제"
-                            f.appendChild(button3);
+                                let button3 = document.createElement('button');
+                                button3.setAttribute('type', 'submit');
+                                button3.setAttribute('formaction', '{% url "goldRabbitSite:delete" %}');
+                                button3.setAttribute('name', 'id');
+                                button3.setAttribute('value', val.id);
+                                button3.setAttribute('class', 'btn btn-primary');
+                                button3.setAttribute('style', 'margin : 5px 5px 20px 0px');
+                                button3.innerText = "삭제"
+                                f.appendChild(button3);
+                            }
                         }
                     }
                     modal.style.display = "flex";
@@ -144,45 +146,46 @@
                     while(f.hasChildNodes()) {
                         f.removeChild(f.firstChild);
                     }
+                    var logined = '{{ user.is_authenticated }}';
                     for (let val of reservList){
                         if (val.reserved_date === info.dateStr){
                             let obj;
                             obj = document.createElement('li');
                             obj.innerHTML = val.reserved_start+"~"+val.reserved_end+"　"+val.reserved_name+"　　　"+val.reserved_status;
                             f.appendChild(obj);
+                            if (logined == 'True') {
+                                let button1 = document.createElement('button');
+                                button1.setAttribute('type', 'submit');
+                                button1.setAttribute('formaction', '{% url "goldRabbitSite:success" %}');
+                                button1.setAttribute('name', 'id');
+                                button1.setAttribute('value', val.id);
+                                button1.setAttribute('class', 'btn btn-primary');
+                                button1.setAttribute('style', 'margin : 5px 10px 20px 0px');
+                                button1.innerText = "완료";
+                                
+                                f.appendChild(button1);
 
-                            let button1 = document.createElement('button');
-                            button1.setAttribute('type', 'submit');
-                            button1.setAttribute('formaction', '{% url "goldRabbitSite:success" %}');
-                            button1.setAttribute('name', 'id');
-                            button1.setAttribute('value', val.id);
-                            button1.setAttribute('class', 'btn btn-primary');
-                            button1.setAttribute('style', 'margin : 5px 10px 20px 0px');
-                            button1.innerText = "완료";
-                            
-                            f.appendChild(button1);
+                                let button2 = document.createElement('button');
+                                button2.setAttribute('type', 'submit');
+                                button2.setAttribute('formaction', '{% url "goldRabbitSite:wait" %}');
+                                button2.setAttribute('name', 'id');
+                                button2.setAttribute('value', val.id);
+                                button2.setAttribute('class', 'btn btn-primary');
+                                button2.setAttribute('style', 'margin : 5px 10px 20px 0px');
+                                button2.innerText = "대기"
 
-                            let button2 = document.createElement('button');
-                            button2.setAttribute('type', 'submit');
-                            button2.setAttribute('formaction', '{% url "goldRabbitSite:wait" %}');
-                            button2.setAttribute('name', 'id');
-                            button2.setAttribute('value', val.id);
-                            button2.setAttribute('class', 'btn btn-primary');
-                            button2.setAttribute('style', 'margin : 5px 10px 20px 0px');
-                            button2.innerText = "대기"
+                                f.appendChild(button2);
 
-                            f.appendChild(button2);
-
-                            let button3 = document.createElement('button');
-                            button3.setAttribute('type', 'submit');
-                            button3.setAttribute('formaction', '{% url "goldRabbitSite:delete" %}');
-                            button3.setAttribute('name', 'id');
-                            button3.setAttribute('value', val.id);
-                            button3.setAttribute('class', 'btn btn-primary');
-                            button3.setAttribute('style', 'margin : 5px 5px 20px 0px');
-                            button3.innerText = "삭제"
-                            f.appendChild(button3);
-
+                                let button3 = document.createElement('button');
+                                button3.setAttribute('type', 'submit');
+                                button3.setAttribute('formaction', '{% url "goldRabbitSite:delete" %}');
+                                button3.setAttribute('name', 'id');
+                                button3.setAttribute('value', val.id);
+                                button3.setAttribute('class', 'btn btn-primary');
+                                button3.setAttribute('style', 'margin : 5px 5px 20px 0px');
+                                button3.innerText = "삭제"
+                                f.appendChild(button3);
+                            }
 
                         }
                     }
