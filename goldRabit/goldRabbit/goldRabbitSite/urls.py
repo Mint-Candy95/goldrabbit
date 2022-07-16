@@ -1,5 +1,5 @@
 from django.urls import path
-
+from django.contrib.auth import views as auth_views
 from . import views
 
 app_name = 'goldRabbiSite'
@@ -14,7 +14,7 @@ urlpatterns = [
     path('contact/', views.goldrabbit_contact, name="contact"),
     path('howto/', views.goldrabbit_howto, name="howto"),
     path('album/', views.goldrabbit_album, name="album"),
-    path('admin/', views.goldrabbit_admin, name="admin"),
-    path('adminLogin/', views.goldrabbit_adminLogin, name="adminLogin"),
+    path('admin/', auth_views.LoginView.as_view(template_name="goldRabbitSite/admin.html"), name="admin"),
+    path('logout/', auth_views.LogoutView.as_view(), name="logout"),
     
 ]

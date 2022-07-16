@@ -98,32 +98,3 @@ def goldrabbit_album(request) :
         
     }
     return render(request, 'goldRabbitSite/album.html', context)
-
-def goldrabbit_admin(request) :
-    if request=='GET' :
-        
-        return render(request, 'goldRabbitSite/adminLogin.html')
-    if request.POST.get('pwd') != 'lovey3618' :
-        context = {
-            'msg' : '비밀번호가 일치하지 않습니다냥.'
-        } 
-        return render(request, 'goldRabbitSite/adminLogin.html', context)
-    
-    reservedList = list(Reserved.objects.all().values())
-    reservJson = json.dumps(reservedList)
-    
-    notiList = list(Notification.objects.all().values())
-    notiJson = json.dumps(notiList)
-    context = {
-        'reservedList' : reservJson,
-        'notiList' : notiJson,
-        'recent_noti' : Notification.objects.order_by('-noti_date')[:1].values()
-    }
-    return render(request, 'goldRabbitSite/admin.html', context)
-
-def goldrabbit_adminLogin(request) :
-    
-    context = {
-        
-    }
-    return render(request, 'goldRabbitSite/adminLogin.html', context)

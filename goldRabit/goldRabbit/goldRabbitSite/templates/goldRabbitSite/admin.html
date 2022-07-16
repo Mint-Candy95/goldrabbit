@@ -4,159 +4,43 @@
 {% block content %}
 <div id="body_main">
     <img id="logo" src="{% static 'goldRabbitSite/images/logo.jpg'%}">
-    <div id="calendar_layout">
-        <div id='calendar'></div>
-    <div>
+    
+    <div id="reserv_main">
+        <br/>
+        <h3>관리자 로그인</h3><br/>
+        <form method="POST">
+            {% csrf_token %}
+            {% include 'goldRabbitSite/form_error.html'%}
+            <p>계정  : <input name="username"type="text" class="form-control-sm input-data"/></p>
+            <p>비밀번호 : <input name="password"type="password" class="form-control-sm input-data"/></p>
+            <div style="margin-top:20px; margin-bottom:20px">
+                <button type="submit" class="btn btn-primary" formaction="{% url 'goldRabbitSite:admin' %}">검색</button>
+            </div>
+        </form>
+    </div>
+    </form>
 
 </div>
 
-
-<script>
-    var reservList = JSON.parse("{{reservedList|escapejs}}");
-    var eventsList = []
-    for (let val of reservList){
-        console.log(val);
-        eventsList.push({title: "~"+val.reserved_end+":00",
-                    start: val.reserved_date+"T"+val.reserved_start+":00:00",
-                end : val.reserved_date+"T"+val.reserved_end+":00:00",
-                allDay:false,})
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                eventClick:function(info){
-
-                    let g = document.getElementById('day_title');
-                    while(g.hasChildNodes()) {
-                        g.removeChild(g.firstChild);
-                    }
-                    let obj2 = document.createElement('h3');
-                    var tday = info.event.start.getDate();
-                    console.log(info.event.start.getFullYear());
-                    console.log(info.event.start.getYear());
-                    var full_date = info.event.start.getFullYear()+"-"+(parseInt(info.event.start.getMonth())+1)+"-"+info.event.start.getDate();
-                    document.getElementById("select_date").value = full_date;
-                    
-                    obj2.innerText = tday+"일 예약 현황";
-                    g.appendChild(obj2);
-
-                    let h = document.getElementById('go_reservate');
-                    h.setAttribute("formaction", "{% url 'goldRabbitSite:reservate' %}");
-                    
-                    let f = document.getElementById('day_list');
-                    while(f.hasChildNodes()) {
-                        f.removeChild(f.firstChild);
-                    }
-                    for (let val of reservList){
-                        console.log(val.reserved_date.substr(-2) , tday);
-                        if (val.reserved_date.substr(-2) == tday){
-                            let obj;
-                            obj = document.createElement('li');
-
-                            obj.innerText = val.reserved_start+"~"+val.reserved_end+"　"+val.reserved_name+"　　　"+val.reserved_status;
-                            f.appendChild(obj);
-                        }
-                    }
-                    modal.style.display = "flex";
-                },
-                dateClick:function(info) {
-                    let f = document.getElementById('send_date');
-
-                    let obj;
-                    obj = document.createElement('input');
-                    obj.setAttribute('type', 'hidden');
-                    obj.setAttribute('name', 'today_date');
-                    obj.setAttribute('value', info);
-
-                    f.appendChild(obj);
-                    f.setAttribute('method', 'post');
-                    f.setAttribute('action', "{% url 'goldRabbitSite:reservate' %}");
-                    document.body.appendChild(f);
-                    f.submit(); 
-                }
-                ,
-                headerToolbar: {
-                    {% comment %} left : 'notify', {% endcomment %}
-                    left:'',
-                    center: 'prev title next',
-                    right: ''
-                },
-                slotMinTime : '13:00',
-                slotMaxTime : '25:00',
-                events: eventsList,
-                eventTimeFormat: { // like '14:30:00'
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    meridiem: false,
-                    hour12:false
-                },
-                dayHeaderContent: function (date) {
-                let weekList = ["일", "월", "화", "수", "목", "금", "토"];
-                return weekList[date.dow];
-                },
-                // YYYY년 MM월
-                titleFormat: function(date) {
-                    return `${date.date.year}년 ${date.date.month + 1}월`;
-                },
-                contentHeight: 470
-            });
-
-
-        console.log(eventsList)
-        calendar.render();
-    });
-
-</script>
-
 <style>
-    #body_main{
-        border : 1px 1px 1px 1px;
-    }
-    #calendar{
-        width : 95%;
-        margin: 0 auto;
-        margin-top : 20px;
-        margin-bottom : 30px;
-    }
     #logo{
         display:block;
         width : 20%;
-        margin : auto;
+        margin : 0 auto;
         margin-top : 20px;
         margin-bottom : 20px;
     }
-    .fc-toolbar-chunk {
-        display: flex; 
-        align-items: center; 
-      }
-    .fc-toolbar-title {
-        font-size : larger;
-    }
 
-    
-
-    
-    .content {
-        margin-top: 20px;
-        padding: 0px 10px;
-        text-shadow: 1px 1px 2px gray;
-        color: purple;
-    }
-
-    #calendar_layout{
+    #reserv_main{
         border: 4px solid rgb(254,222,15);
         border-radius : 60px;
-    }
-
-    #button_layout{
-        width:40%;
+        text-align : center;
+        width : 80%;
         margin : auto;
-        position : absolute;
-        top : 70%;
-        left : 30%;
-
     }
 
+    .input-data{
+        width:50%;
+    }
 </style>
 {% endblock %}

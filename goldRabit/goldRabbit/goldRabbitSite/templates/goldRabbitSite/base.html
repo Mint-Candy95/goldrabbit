@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='ko-KO'>
   <head>
     <meta charset='utf-8' />
     <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
@@ -28,11 +28,23 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'goldRabbitSite:album' %}">골드래빗 앨범</a>
-            </li>            <li class="nav-item">
+            </li>            
+            <li class="nav-item">
               <a class="nav-link" href="{% url 'goldRabbitSite:howto' %}">예약 방법</a>
-            </li>            <li class="nav-item">
+            </li>            
+            <li class="nav-item">
               <a class="nav-link" href="{% url 'goldRabbitSite:contact' %}">문의사항</a>
             </li>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'goldRabbitSite:logout' %}">관리자 로그아웃</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'goldRabbitSite:admin' %}">관리자 로그인</a>
+            </li>
+            {% endif %}
 
           </ul>
           <form class="d-flex">

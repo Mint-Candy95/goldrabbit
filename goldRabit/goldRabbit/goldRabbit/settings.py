@@ -153,3 +153,6 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken',
     'x-requested-with',
 )
+
+LOGIN_REDIRECT_URL = '/goldRabbitSite/'
+LOGOUT_REDIRECT_URL = '/goldRabbitSite/'
