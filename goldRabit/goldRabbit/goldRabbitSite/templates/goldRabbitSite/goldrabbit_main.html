@@ -69,12 +69,18 @@
                     }
                     var logined = '{{ user.is_authenticated }}';
                     for (let val of reservList){
-                        console.log(val.reserved_date.substr(-2) , tday);
                         if (val.reserved_date.substr(-2) == tday){
                             let obj;
                             obj = document.createElement('li');
-
-                            obj.innerText = val.reserved_start+"~"+val.reserved_end+"　"+val.reserved_name+"　　　"+val.reserved_status;
+                            if (logined == 'True') {
+                                obj.innerHTML = val.reserved_start+"~"+val.reserved_end+"　"+val.reserved_name+"　　　"+val.reserved_status;
+                            }else{
+                                if(val.reserved_unknown == 1){
+                                    obj.innerHTML = val.reserved_start+"~"+val.reserved_end+"　"+"***"+"　　　"+val.reserved_status;
+                                }else{
+                                    obj.innerHTML = val.reserved_start+"~"+val.reserved_end+"　"+val.reserved_name+"　　　"+val.reserved_status;
+                                }
+                            }
                             f.appendChild(obj);
                             if (logined == 'True' ){
                                 let button1 = document.createElement('button');
@@ -151,7 +157,15 @@
                         if (val.reserved_date === info.dateStr){
                             let obj;
                             obj = document.createElement('li');
-                            obj.innerHTML = val.reserved_start+"~"+val.reserved_end+"　"+val.reserved_name+"　　　"+val.reserved_status;
+                            if (logined == 'True') {
+                                obj.innerHTML = val.reserved_start+"~"+val.reserved_end+"　"+val.reserved_name+"　　　"+val.reserved_status;
+                            }else{
+                                if(val.reserved_unknown == 1){
+                                    obj.innerHTML = val.reserved_start+"~"+val.reserved_end+"　"+"***"+"　　　"+val.reserved_status;
+                                }else{
+                                    obj.innerHTML = val.reserved_start+"~"+val.reserved_end+"　"+val.reserved_name+"　　　"+val.reserved_status;
+                                }
+                            }
                             f.appendChild(obj);
                             if (logined == 'True') {
                                 let button1 = document.createElement('button');

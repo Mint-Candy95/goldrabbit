@@ -37,10 +37,13 @@ def goldrabbit_reservate_noti(request) :
         end = request.POST.get('end')        
         cost = request.POST.get('cost')        
         anony = request.POST.get('anony')
-        # Reserved.objects.create()
+        person = request.POST.get('people_num')
+        Reserved.objects.create(reserved_name=name, reserved_date=date, reserved_pwd=pwd, reserved_start = start,
+                                reserved_end = end, reserved_price = cost,reserved_status='wait',reserved_unknown=anony,
+                                reserved_person=person)
 
     context = {
-        'name' : name, 'pwd':pwd
+        'nickname' : name, 'pwd':pwd
     }
     return render(request, 'goldRabbitSite/reservate_noti.html', context)
 
@@ -64,20 +67,26 @@ def goldrabbit_notificationDetail(request,noti_num) :
     return render(request, 'goldRabbitSite/notification_detail.html', context)
 
 def goldrabbit_myreserved(request) :
+    if request.method == "POST" :
+        return goldrabbit_myreservedResult(request)
 
-    context = {
-
-    }
-    return render(request, 'goldRabbitSite/myReserve.html', context)
+    return render(request, 'goldRabbitSite/myReserve.html',)
 
 def goldrabbit_myreservedResult(request) :
     reserv_list = None
     if request.method == 'POST' :
+        print(request.POST)
         nick = request.POST.get('nickname')
         pwd = request.POST.get('pwd')
         
         reserv_list = Reserved.objects.all().filter(reserved_name=nick, reserved_pwd = pwd).values()
         print(reserv_list)
+    if len(reserv_list) == 0 :
+        context = {
+            'msg' : '일치하는 정보가 없습니다.'
+        }
+        return render(request, 'goldRabbitSite/myReserve.html',context)
+
     context = {
         'reserv_list' : reserv_list
     }
