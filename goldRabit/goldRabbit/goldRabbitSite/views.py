@@ -98,3 +98,23 @@ def goldrabbit_album(request) :
         
     }
     return render(request, 'goldRabbitSite/album.html', context)
+
+def success(request) :
+    reserv_id = request.POST.get('id')
+    reserv = Reserved.objects.get(id=reserv_id)
+    reserv.reserved_status = 'success'
+    reserv.save()
+    return goldrabbit_main(request)
+
+def wait(request) :
+    reserv_id = request.POST.get('id')
+    reserv = Reserved.objects.get(id=reserv_id)
+    reserv.reserved_status = 'wait'
+    reserv.save()
+    return goldrabbit_main(request)
+
+def delete(request) :
+    reserv_id = request.POST.get('id')
+    reserv = Reserved.objects.get(id=reserv_id)
+    reserv.delete()
+    return goldrabbit_main(request)

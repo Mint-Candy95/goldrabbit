@@ -5,6 +5,9 @@ from . import views
 app_name = 'goldRabbiSite'
 urlpatterns = [
     path('', views.goldrabbit_main, name='main'),
+    path('success', views.success, name='success'),
+    path('wait', views.wait, name='wait'),
+    path('delete', views.delete, name='delete'),
     path('reservate/',views.goldrabbit_reservate, name="reservate"),
     path('reservate_noti/',views.goldrabbit_reservate_noti, name="reservate_noti"),
     path('notify/', views.goldrabbit_notification, name="notify"),
