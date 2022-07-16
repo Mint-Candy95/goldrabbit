@@ -9,11 +9,13 @@
     <div id="reserv_main">
         <br/>
         <h3>예약 정보</h3><br/>
-        <p>닉네임 : <input type="text" class = "form-control-sm input-data" maxlength="10"><br/></p>
-        <p>비밀번호 : <input type="password" class="form-control-sm input-data"/></p>
-        <p>날짜 : <input type="date" value="{{init_date}}"> </p>
+        <p>닉네임 : <input type="text" name="username" class = "form-control-sm input-data" maxlength="10" required>
+            <label class="form-check-label"><input name="anony" value="" type="checkbox" class="form-check-input"> 익명</label><br/>
+        </p>
+        <p>비밀번호 : <input name="password" type="password" class="form-control-sm input-data" required/></p>
+        <p>날짜 : <input name="date" type="date" value="{{init_date}}" required> </p>
         <p>시간 : 
-        <select class="form-select-sm">
+        <select name="start" onchange="changeCost(this)" class="form-select-sm" required>
             <option selected>시작 시간</option>
             <option value="13">13</option>
             <option value="14">14</option>
@@ -29,7 +31,7 @@
             <option value="24">24</option>
           </select>
           ~
-          <select class="form-select-sm row-2">
+          <select name="end" onchange="changeCost(this)" class="form-select-sm row-2" required>
             <option selected>종료 시간</option>
             <option value="13">13</option>
             <option value="14">14</option>
@@ -46,7 +48,7 @@
           </select>
         </p>
         <p>인원수 :           
-            <select class="form-select-sm row-2" aria-label="Default select example">
+            <select "people_num" onchange="changeCost(this)" class="form-select-sm row-2" aria-label="Default select example">
               <option value="1" selected>1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -59,14 +61,44 @@
               <option value="10">10+</option>
             </select> 명
         </p>
-        총 금액 : ₩ 20,000 원
+        총 금액 : ₩ <input name="cost" id="cost" type="text" size='4' style="border:none"readonly value="30000"> 원
         <br/><br/>
         <button type="submit" id="reserv_notice" formaction="{% url 'goldRabbitSite:reservate_noti' %}" class="btn btn-primary" role="button" style="margin-bottom:20px">예약하기</button>
 
     </div>
     </form>
-
 </div>
+
+<script>
+    var start = 13;
+    var end = 13;
+    var num = 1;
+
+    function changeCost(value) {
+        if(value.name === 'start'){
+            start = value.value;
+        }else if(value.name === 'end'){
+            end = value.value;
+        }else{
+            num = value.value;
+        }
+        var time = end-start;
+        if (time <= 2){
+            time = 0;
+        }else {
+            time -= 2;
+        }
+        var over_num = num-4;
+        if(over_num<0) over_num=0;
+        var cost = 30000+(time*10000)+(over_num*10000);
+        console.log(time)
+        console.log(over_num)
+        var max_cost = 150000;
+        document.getElementById('cost').value = (cost<max_cost)?cost:max_cost;
+        
+    }
+
+</script>
 
 <style>
     #logo{

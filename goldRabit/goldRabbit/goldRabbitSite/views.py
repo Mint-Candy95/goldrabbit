@@ -22,7 +22,6 @@ def goldrabbit_main(request) :
 
 def goldrabbit_reservate(request) :
     init_date = request.POST.get('select_date')
-    print(request.POST)
     context = {
         'init_date' : init_date
     }
@@ -30,9 +29,7 @@ def goldrabbit_reservate(request) :
 
 def goldrabbit_reservate_noti(request) :
     if request.method == 'POST' :
-        ##todo
-        pass
-        
+        print(request.POST)        
 
     context = {
 
