@@ -29,7 +29,6 @@ def goldrabbit_reservate(request) :
 
 def goldrabbit_reservate_noti(request) :
     if request.method == 'POST' :
-        print(request.POST)
         name = request.POST.get('username')        
         pwd = request.POST.get('password')        
         date = request.POST.get('date')        
@@ -75,12 +74,10 @@ def goldrabbit_myreserved(request) :
 def goldrabbit_myreservedResult(request) :
     reserv_list = None
     if request.method == 'POST' :
-        print(request.POST)
         nick = request.POST.get('nickname')
         pwd = request.POST.get('pwd')
         
         reserv_list = Reserved.objects.all().filter(reserved_name=nick, reserved_pwd = pwd).values()
-        print(reserv_list)
     if len(reserv_list) == 0 :
         context = {
             'msg' : '일치하는 정보가 없습니다.'

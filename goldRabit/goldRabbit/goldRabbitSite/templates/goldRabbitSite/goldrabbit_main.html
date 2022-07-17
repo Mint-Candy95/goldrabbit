@@ -34,7 +34,6 @@
     var reservList = JSON.parse("{{reservedList|escapejs}}");
     var eventsList = []
     for (let val of reservList){
-        console.log(val);
         eventsList.push({title: "~"+val.reserved_end,
                     start: val.reserved_date+"T"+val.reserved_start+":00:00",
                 end : val.reserved_date+"T"+val.reserved_end+":00:00",
@@ -52,8 +51,6 @@
                     }
                     let obj2 = document.createElement('h3');
                     var tday = info.event.start.getDate();
-                    console.log(info.event.start.getFullYear());
-                    console.log(info.event.start.getYear());
                     var full_date = info.event.start.getFullYear()+"-"+(parseInt(info.event.start.getMonth())+1)+"-"+info.event.start.getDate();
                     document.getElementById("select_date").value = full_date;
                     
@@ -232,8 +229,6 @@
                 contentHeight: 470
             });
 
-
-        console.log(eventsList)
         calendar.render();
     });
 
