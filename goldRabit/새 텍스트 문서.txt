@@ -1,3 +1,0 @@
-{
-	"SECRET_KEY": "sdafsdafgdsagr3ew23412$#%@$#%!123"
-}
