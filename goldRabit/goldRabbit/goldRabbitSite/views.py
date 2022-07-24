@@ -3,9 +3,11 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import Reserved, Notification
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
 
 import json
 
+@csrf_exempt
 def goldrabbit_main(request) :
     reservedList = list(Reserved.objects.all().values())
     reservJson = json.dumps(reservedList)
@@ -19,7 +21,7 @@ def goldrabbit_main(request) :
     }
     
     return render(request, 'goldRabbitSite/goldrabbit_main.html', context)
-
+@csrf_exempt
 def goldrabbit_reservate(request) :
     init_date = request.POST.get('select_date')
     context = {
@@ -27,6 +29,7 @@ def goldrabbit_reservate(request) :
     }
     return render(request, 'goldRabbitSite/reservate.html', context)
 
+@csrf_exempt
 def goldrabbit_reservate_noti(request) :
     if request.method == 'POST' :
         name = request.POST.get('username')        
@@ -46,6 +49,7 @@ def goldrabbit_reservate_noti(request) :
     }
     return render(request, 'goldRabbitSite/reservate_noti.html', context)
 
+@csrf_exempt
 def goldrabbit_notification(request) :
     page = request.GET.get('page', '1')
     notifyList = Notification.objects.order_by('-noti_date').values()
@@ -57,6 +61,7 @@ def goldrabbit_notification(request) :
     }
     return render(request, 'goldRabbitSite/notification.html', context)
     
+@csrf_exempt
 def goldrabbit_notificationDetail(request,noti_num) :
     
     notify = Notification.objects.get(id=noti_num)
@@ -65,12 +70,14 @@ def goldrabbit_notificationDetail(request,noti_num) :
     }
     return render(request, 'goldRabbitSite/notification_detail.html', context)
 
+@csrf_exempt
 def goldrabbit_myreserved(request) :
     if request.method == "POST" :
         return goldrabbit_myreservedResult(request)
 
     return render(request, 'goldRabbitSite/myReserve.html',)
 
+@csrf_exempt
 def goldrabbit_myreservedResult(request) :
     reserv_list = None
     if request.method == 'POST' :
@@ -89,6 +96,7 @@ def goldrabbit_myreservedResult(request) :
     }
     return render(request, 'goldRabbitSite/myReserveResult.html', context)
 
+@csrf_exempt
 def goldrabbit_contact(request) :
     
     context = {
@@ -96,6 +104,7 @@ def goldrabbit_contact(request) :
     }
     return render(request, 'goldRabbitSite/contact.html', context)
 
+@csrf_exempt
 def goldrabbit_howto(request) :
     
     context = {
@@ -103,13 +112,15 @@ def goldrabbit_howto(request) :
     }
     return render(request, 'goldRabbitSite/howto.html', context)
 
+
+@csrf_exempt
 def goldrabbit_album(request) :
     
     context = {
         
     }
     return render(request, 'goldRabbitSite/album.html', context)
-
+@csrf_exempt
 def success(request) :
     reserv_id = request.POST.get('id')
     reserv = Reserved.objects.get(id=reserv_id)
@@ -117,6 +128,8 @@ def success(request) :
     reserv.save()
     return goldrabbit_main(request)
 
+
+@csrf_exempt
 def wait(request) :
     reserv_id = request.POST.get('id')
     reserv = Reserved.objects.get(id=reserv_id)
@@ -124,6 +137,7 @@ def wait(request) :
     reserv.save()
     return goldrabbit_main(request)
 
+@csrf_exempt
 def delete(request) :
     reserv_id = request.POST.get('id')
     reserv = Reserved.objects.get(id=reserv_id)

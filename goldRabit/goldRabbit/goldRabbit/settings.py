@@ -39,10 +39,12 @@ SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['http://goldrabbit-yeahyak.kr',
+        'http://localhost:8000',
+        ]
 
 # Application definition
 
@@ -99,8 +101,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'goldrabbit',
         'USER': 'goldrabbit',
-        'PASSWORD': 'Gkgustn7488!',
-        'HOST': 'localhost',
+        'PASSWORD': 'Ichigo100%',
+        'HOST': '10.0.1.111',
         'PORT': '3306',
     }
 }
@@ -149,6 +151,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ##CORS
 CORS_ORIGIN_ALLOW_ALL=True
 CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_WHITELIST = (
+        'https://goldrabbit-yeahyak.kr/',
+        'goldrabbit-yeahyak.kr',
+        'http://localhost:8000',
+)
+        
 
 CORS_ALLOW_METHODS = (
     'DELETE',

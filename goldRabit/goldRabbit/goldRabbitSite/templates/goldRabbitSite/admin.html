@@ -8,13 +8,13 @@
     <div id="reserv_main">
         <br/>
         <h3>관리자 로그인</h3><br/>
-        <form method="POST">
+	<form action="{% url 'goldRabbitSite:admin' %}" method="POST">
             {% csrf_token %}
             {% include 'goldRabbitSite/form_error.html'%}
             <p>계정  : <input name="username"type="text" class="form-control-sm input-data"/></p>
             <p>비밀번호 : <input name="password"type="password" class="form-control-sm input-data"/></p>
             <div style="margin-top:20px; margin-bottom:20px">
-                <button type="submit" class="btn btn-primary" formaction="{% url 'goldRabbitSite:admin' %}">검색</button>
+		    <button type="submit" class="btn btn-primary">로그인</button>
             </div>
         </form>
     </div>  
