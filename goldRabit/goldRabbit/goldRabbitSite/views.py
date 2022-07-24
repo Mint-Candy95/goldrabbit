@@ -1,9 +1,13 @@
+from email import message
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from .models import Reserved, Notification
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
+from django.core.mail.message import EmailMessage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 import json
 
@@ -43,7 +47,13 @@ def goldrabbit_reservate_noti(request) :
         Reserved.objects.create(reserved_name=name, reserved_date=date, reserved_pwd=pwd, reserved_start = start,
                                 reserved_end = end, reserved_price = cost,reserved_status='wait',reserved_unknown=anony,
                                 reserved_person=person)
-
+        subject = "새로운 예약신청이 접수되었습니다."
+        to = ['hhs887488@gmail.com']
+        from_email = 'hakkaame626@gmail.com'
+        message = "새로운 예약신청이 있습니다.\n 날짜:"+date+"\n닉네임 : "+name+"\n인원 : "+person+"\n시간 : "+start+"~"+end+"\n바로가기 : http://goldrabbit-yeahyak.kr"
+                
+                
+        EmailMessage(subject=subject, body=message, to=to, from_email=from_email).send()
     context = {
         'nickname' : name, 'pwd':pwd
     }

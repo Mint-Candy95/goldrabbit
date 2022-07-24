@@ -92,6 +92,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'goldRabbit.wsgi.application'
 
+# Email 전송
+# 메일을 호스트하는 서버
+EMAIL_HOST = 'smtp.gmail.com'
+
+# gmail과의 통신하는 포트
+EMAIL_PORT = '587'
+
+# 발신할 이메일
+# EMAIL_HOST_USER = '구글아이디@gmail.com'
+#EMAIL_HOST_USER = get_secret("EMAIL_HOST_USER")
+EMAIL_HOST_USER = "hakkaame626@gmail.com"
+# 발신할 메일의 비밀번호
+# EMAIL_HOST_PASSWORD = '구글비밀번호'
+#EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_PASSWORD = "vunimpgnbfvfmljb"
+# TLS 보안 방법
+EMAIL_USE_TLS = True
+
+# 사이트와 관련한 자동응답을 받을 이메일 주소
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -101,8 +121,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'goldrabbit',
         'USER': 'goldrabbit',
-        'PASSWORD': 'Ichigo100%',
-        'HOST': '10.0.1.111',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
@@ -153,8 +173,6 @@ CORS_ORIGIN_ALLOW_ALL=True
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_WHITELIST = (
-        'https://goldrabbit-yeahyak.kr/',
-        'goldrabbit-yeahyak.kr',
         'http://localhost:8000',
 )
         
